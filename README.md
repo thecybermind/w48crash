@@ -1,29 +1,22 @@
 # WebMod Stack Buffer Overflow
-by cybermind (Kevin Masterson)
+by cybermind (Kevin Masterson)  
 cybermind@gmail.com
 
 WebMod site (archived): https://web.archive.org/web/20080517044559/http://djeyl.net/w.php
 
-Vulnerable versions:
-0.48, both Win32 and Linux. Previous versions may be vulnerable. This should
-work with any version of HLDS.
+Vulnerable versions:  
+0.48, both Win32 and Linux. Previous versions may be vulnerable. This should work with any version of HLDS.
 
-Vulnerability type:
+Vulnerability type:  
 DoS, Remote code execution under the user HLDS is running under.
 
 Description:
-When receiving an HTTP POST request, it allocates 11 bytes on the stack to store
-the value for Content-Length, but writes into that buffer until a newline or
-null terminator is received. After your Content-Length string reaches 158308
-bytes, it begins overwriting the EIP. This number may be slightly different on
-Linux due to padding. Your shellcode must not contain 0x00, 0x0A, or 0x0D or
-else it will stop reading data from the socket.
+When receiving an HTTP POST request, it allocates 11 bytes on the stack to store the value for Content-Length, but writes into that buffer until a newline or null terminator is received. After your Content-Length string reaches 158308 bytes, it begins overwriting the EIP. This number may be slightly different on Linux due to padding. Your shellcode must not contain 0x00, 0x0A, or 0x0D or else it will stop reading data from the socket.
 
 This may assist in executing your shellcode:
-  For Win32:
+* For Win32:  
   There is an "FF E4" (jmp esp) in w_mm.dll v0.48 at 0x67E03C5B
-
-  For Linux:
+* For Linux:  
   There is an "FF E4" (jmp esp) in metamod_i386.so v1.19 at offset 0x0008835C
 
 
