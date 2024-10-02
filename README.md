@@ -1,4 +1,4 @@
-# WebMod Stack Buffer Overflow
+# WebMod Stack Buffer Overflow CVE-2007-1260
 by cybermind (Kevin Masterson)  
 cybermind@gmail.com
 
